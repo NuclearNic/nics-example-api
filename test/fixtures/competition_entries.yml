@@ -1,0 +1,29 @@
+# == Schema Information
+#
+# Table name: competition_entries
+#
+#  id             :integer          not null, primary key
+#  name           :string
+#  answer         :string
+#  phone          :string
+#  email          :string
+#  competition_id :integer
+#  created_at     :datetime
+#  updated_at     :datetime
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  answer: MyString
+  phone: MyString
+  email: MyString
+  competition_id: 1
+
+two:
+  name: MyString
+  answer: MyString
+  phone: MyString
+  email: MyString
+  competition_id: 1

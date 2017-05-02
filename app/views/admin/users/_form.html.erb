@@ -1,0 +1,62 @@
+<div class="box box-<%= bootstrap_style %>">
+  <div class="box-body">
+
+    <%= form_for([:admin, eval("@#{controller_name.singularize}")]) do |f| %>
+        
+        <% if eval("@#{controller_name.singularize}").errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(eval("@#{controller_name.singularize}").errors.count, "error") %> prohibited this estimate_element from being saved:</h2>
+              <ul>
+                <% eval("@#{controller_name.singularize}").errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                <% end %>
+              </ul>
+            </div>
+        <% end %>
+
+        <div class="form-group">
+          <%= f.label :first_name %><br>
+          <%= f.text_field :first_name, class: 'form-control'  %>
+        </div>
+        
+        <div class="form-group">
+          <%= f.label :last_name %><br>
+          <%= f.text_field :last_name, class: 'form-control'  %>
+        </div>
+        
+        <div class="form-group">
+          <%= f.label :email %><br>
+          <%= f.text_field :email, class: 'form-control'  %>
+        </div>
+
+        <% if current_user.admin? %>
+          <div class="form-group">
+            <%= f.label :role %><br>
+            <%= f.select(:role, ['Super Admin','Administrator','Content Manager'], {:selected => current_user.role}, {:class=>"form-control"}) %>          
+          </div>    
+        <% end %>
+
+        <div class="field">
+          <%= f.label :password, "New password" %><br />
+          <% if @minimum_password_length %>
+            <em>(<%= @minimum_password_length %> characters minimum)</em><br />
+          <% end %>
+          <%= f.password_field :password, autofocus: true, autocomplete: "off" %>
+        </div>
+
+        <div class="field">
+          <%= f.label :password_confirmation, "Confirm new password" %><br />
+          <%= f.password_field :password_confirmation, autocomplete: "off" %>
+        </div><br>
+
+        <div class="actions">
+          <%= f.submit class: 'btn btn-default'%> |
+          <%= link_to 'Back', eval("admin_#{controller_name.downcase}_path"), class: 'btn btn-default' %>
+          <% unless action_name == "new" %>|
+            <%= link_to 'Destroy', [:admin, eval("@#{controller_name.singularize}")], method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+          <% end %>
+        </div>
+    <% end %>
+
+  </div>
+</div>

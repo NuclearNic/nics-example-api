@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  
+    <meta charset="UTF-8">
+    <title>Example | API </title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <%# unless Rails.env.development? %>  <!-- WHY GOD -->
+      <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> -->
+      <script src="https://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+    <%# end %>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.2/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <%= csrf_meta_tags %>
+  
+  </head>
+
+  <body class="skin-<%= layout_skin %> sidebar-mini fixed <%= params[:controller].parameterize %> <%= action_name %>">
+  
+    <div class="wrapper">
+      <%= render partial: 'layouts/header' %>
+      <%= render partial: 'layouts/sidebar' %>
+      <div class="content-wrapper">
+        <section class="content-header">
+          <h1><%= yield :title %></h1>
+        </section>
+        <section class="content">
+          <% if notice %>
+            <div class="alert alert-info alert-dismissable">
+              <i class="fa fa-check"></i>
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+              <b><%= notice %></b>
+            </div>
+          <% end %>
+          <% if alert %>
+            <div class="alert alert-danger alert-dismissable">
+              <i class="fa fa-ban"></i>
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+              <b><%= alert %></b>
+            </div>
+          <% end %>
+          <%= yield :content %>  
+        </section>
+      </div>
+      <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+          <%= @app.try(:company).try(:name) %>
+        </div>
+        <strong>Example &copy; 2017 </strong> All rights reserved.
+      </footer>
+      <aside class="control-sidebar control-sidebar-dark">
+        <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+          <li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-sticky-note-o"></i></a></li>
+          <li class=""><a href="#control-sidebar-settings-tab" data-toggle="tab" aria-expanded="false"><i class="fa fa-pencil-square-o"></i></a></li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="control-sidebar-home-tab">
+            <h3 class="control-sidebar-heading">My Notes (coming soon)</h3>
+            <ul class="control-sidebar-menu">
+              <li>
+                <a href="javascript::;">
+                  <i class="menu-icon fa fa-thumbs-up bg-red"></i>
+                  <div class="menu-info">
+                    <h4 class="control-sidebar-subheading">Update schedule.</h4>
+                    <p>Do before 23rd of April</p>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
+          <div class="tab-pane" id="control-sidebar-settings-tab">
+            <form method="post">
+              <h3 class="control-sidebar-heading">New Note (coming soon)</h3>
+                <div class="form-group">
+                </div>
+            </form>
+          </div>
+        </div>
+      </aside>
+      <div class="control-sidebar-bg" style="position: fixed; height: auto;"></div>
+    </div>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= yield :javascript %>
+
+  </body>
+</html>

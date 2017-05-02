@@ -1,0 +1,26 @@
+<% content_for :content do %>
+
+  <div style="text-align:center;">
+
+		<% if @app.nil? %>
+			<h2>Select an App to view JSON output for each API endpoint</h2>
+
+		<% else %>
+
+			<div class="row">
+			<h2>Click on a link below to view the JSON view for that API endpoint.</h2>
+
+				<%= link_to(request.base_url+"/api/v1/apps/1.json", request.base_url+"/api/v1/apps/1.json", target: :_blank) %><br>
+				<%= link_to(request.base_url+"/api/v1/1/articles.json", request.base_url+"/api/v1/1/articles.json", target: :_blank) %><br>
+				<%= link_to(request.base_url+"/api/v1/1/pages.json", request.base_url+"/api/v1/1/pages.json", target: :_blank) %><br>
+				<%= link_to(request.base_url+"/api/v1/1/videos.json", request.base_url+"/api/v1/1/videos.json", target: :_blank) %><br>
+				<%= link_to(request.base_url+"/api/v1/1/competitions.json", request.base_url+"/api/v1/1/competitions.json", target: :_blank) %><br>
+				<%= link_to(request.base_url+"/api/v1/1/schedules.json", request.base_url+"/api/v1/1/schedules.json", target: :_blank) %><br>
+
+			</div>
+
+
+		<% end %>
+	</div>
+
+<% end %>

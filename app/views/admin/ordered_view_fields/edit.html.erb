@@ -1,0 +1,46 @@
+<% content_for :content do %>
+
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Field</th>
+        <th>Show/Hide</th>
+      </tr>
+    </thead>
+
+    <tbody class="sortable">
+      <% @ordered_view_field.model_fields.each do |field| %>
+        <tr class="model-field" data-id="<%= field %>">
+          <td><%= field %></td>
+          <td><%= link_to 'HIDE', hide_field_path(field: field) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+    
+    <tbody>
+      <% (@ordered_view_field.name_of_model.constantize.column_names - @ordered_view_field.model_fields).each do |field| %>
+        <tr class="model-field" data-id="<%= field %>">
+          <td><%= field %></td>
+          <td><%= link_to 'SHOW', show_field_path(field: field) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <script>
+    $(function(){
+      $('.sortable').sortable().bind('sortupdate', function() {
+        updated_order = [];
+        $('.model-field').each(function(){
+            updated_order.push($(this).data("id"));
+        });
+        $.ajax({
+            type: "POST",
+            url: '/admin/ordered_view_fields/<%= @ordered_view_field.id %>/reorder_fields',
+            data: { order: updated_order }
+        });
+      }); 
+    });
+  </script>
+
+<% end %>

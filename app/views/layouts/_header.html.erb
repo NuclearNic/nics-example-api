@@ -1,0 +1,81 @@
+<header class="main-header">
+
+  <a href="/" class="logo">
+    <span class="logo-mini"><b>L</b>M</span>
+    <span class="logo-lg"><b><%= @company_layout.name.upcase %></b>Mobile
+    </span>
+  </a>
+
+  <nav class="navbar navbar-static-top" role="navigation">
+    <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+      <span class="sr-only">Toggle navigation</span>
+    </a>
+    <!-- TODO: Apps shown should be those assigned/owned-by User -->
+    <% if current_user.superadmin? %>
+      <div class="navbar-custom-menu" style="float:left">
+        <ul class="nav navbar-nav">
+          <li class="dropdown user user-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <img src="/assets/admin/mobile_3.png" class="user-image" style="margin-left:10px; height:30px; width:30px"/>
+              <span class="hidden-xs" style="font-size:18px;"><%= @app.present? ? @app.name : "Showing All Apps" %></span>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="user-header" style="height:100px;">
+                <p>App Selection Menu</p>
+                <select class="form-control" onChange="if(this.selectedIndex!=0) self.location= options[this.selectedIndex].value">
+                  <option value=admin>Select App</option>
+                  <option value=<%=root_url %>admin/app_selection/0>All Apps</option>
+                  <% App.all.each do |app| %>
+                    <option value=<%=root_url %>admin/app_selection/<%=app.id %>><%= app.name %></option>
+                  <% end %>
+                </select>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="navbar-custom-menu">
+      <ul class="nav navbar-nav">
+        <!-- User Account Menu -->
+        <li class="dropdown user user-menu">
+          <!-- Menu Toggle Button -->
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <!-- The user image in the navbar-->
+            <img src="/assets/admin/lumico_user.png" class="user-image" alt="User Image"/>
+            <!-- hidden-xs hides the username on small devices so only the image appears. -->
+            <span class="hidden-xs"><%= current_user.full_name %></span>
+          </a>
+          <ul class="dropdown-menu">
+            <!-- The user image in the menu -->
+            <li class="user-header">
+              <img src="/assets/admin/lumico_user.png" class="img-circle" alt="User Image" />
+              <p>
+                <%= current_user.full_name %><br>
+                <%= current_user.role %>
+                <small>Active since  <%= current_user.created_at.strftime("%B %Y") %></small>
+              </p>
+            </li>
+            <!-- Menu Body -->
+            <li class="user-body">
+              <div class="col-xs-12 text-center">
+                <p><%= current_user.email %></p>
+              </div>
+            </li>
+            <!-- Menu Footer-->
+            <li class="user-footer">
+              <div class="pull-left">
+                <%= link_to 'Edit Profile', edit_admin_user_path(current_user), class: 'btn btn-default btn-flat' %>
+              </div>
+              <div class="pull-right">
+                <%= link_to 'Sign Out', destroy_user_session_path, :method => :delete, class: 'btn btn-default btn-flat' %>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
+

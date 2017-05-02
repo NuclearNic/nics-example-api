@@ -1,0 +1,82 @@
+<% content_for :content do %>
+  <div class="box box-<%= bootstrap_style %>">
+    <div class="box-header with-border">
+      <div class="col-md-10">
+        <h3 class="box-title" style="margin-top:10px;"> <%= controller_name.capitalize %></h3>  
+      </div>
+      <div class="col-md-2">
+        <%= link_to("New #{controller_name.singularize.capitalize}", "new_admin_#{controller_name.singularize.downcase}".to_sym, class: "btn btn-#{bootstrap_style}") %>
+      </div>
+    </div>
+    <div class="box-body">
+      <div class="col-md-12">
+        <div class="box box-<%= bootstrap_style %> box-solid">
+          <div class="box-header">
+            <h3 class="box-title">Index</h3>
+          </div>
+          <div class="box-body">
+            <table id="item" class="table table-bordered table-striped">
+              <thead>
+              <tr>
+                <% OrderedViewField.find_by(name_of_model: controller_name.singularize.capitalize, name_of_view: 'index').model_fields.reject {|x| x.include? "64"}.each do |field| %>
+                    <th style="max-width:120px;"><%= field.humanize.capitalize %></th>
+                <% end %>
+                <th>Actions</th>
+              </tr>
+              </thead>
+              <tbody>
+              <% eval("@#{controller_name}").each do |item| %>
+                  <tr>
+                    <% OrderedViewField.find_by(name_of_model: controller_name.singularize.capitalize, name_of_view: 'index').model_fields.reject {|x| x.include? "64"}.each do |field| %>
+                      <td>
+                        <% type = controller_name.singularize.classify.constantize.column_for_attribute(field).type %>
+
+                        <% if field.include? 'image' and !field.include? 'caption' %>
+                          <%= image_tag(item.send(field).url(:thumb), :size=>"60x60") unless item.send(field).url.nil?%>
+                        
+                        <% elsif type == :string or type == :text or type == :boolean %>
+                          <%= item.send(field) %>
+     
+                        <% elsif field == 'app_id' %>
+                          <%= item.app.try(:name) %>
+
+                        <% elsif field == 'company_id' %>
+                          <%= item.company.try(:name) %>
+
+                        <% elsif type == :datetime %>
+                          <%= item.send(field).strftime("%d %b, %Y") %>
+
+                        <% end %>
+                      </td>
+                    <% end %> 
+                    
+                    <td class="vert-align" style="width:160px;">
+                      <%= link_to(eval("admin_#{controller_name.singularize.downcase}_path(item)"), :title=>"INFO", class: "btn btn-default index-action-button-show") do %>
+                        <i class="index-action-button fa fa-info-circle"></i>
+                      <% end %>
+                      <%= link_to(eval("edit_admin_#{controller_name.singularize.downcase}_path(item)"), :title=>"EDIT", class: "btn btn-default index-action-button-edit") do %>
+                        <i class="index-action-button  fa fa-pencil-square"></i>
+                      <% end %>              
+                      <%= link_to("/admin/#{controller_name.downcase}/#{item.id}", :method => :delete, data: {confirm: 'Are you sure you want to delete this record?'}, :title=>"DELETE", class: "btn btn-default index-action-button-delete") do %>
+                        <i class="index-action-button  fa fa-remove"></i>
+                      <% end %>
+                    </td>
+                  </tr>
+              <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script type="text/javascript">
+    $(function () {
+        $("#item").dataTable({
+          
+        });
+    });
+</script>
+
+<% end %>

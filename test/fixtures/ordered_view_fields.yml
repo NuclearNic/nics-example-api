@@ -1,0 +1,23 @@
+# == Schema Information
+#
+# Table name: ordered_view_fields
+#
+#  id            :integer          not null, primary key
+#  name_of_model :string
+#  name_of_view  :string
+#  model_fields  :text             default([])
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  model_name: MyString
+  view_name: MyString
+  model_fields: MyText
+
+two:
+  model_name: MyString
+  view_name: MyString
+  model_fields: MyText

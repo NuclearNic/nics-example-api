@@ -1,0 +1,135 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require bootstrap-datepicker
+ *= require admin/blue
+ *= require admin/skin-blue.min
+ *= require admin/bootstrap.min
+ *= require admin/AdminLTE.min
+ *= require dataTables/jquery.dataTables
+ *= require bootsy
+ *= require jquery-ui
+ *= require_directory ./admin
+ *= require_self
+ */
+
+@font-face {
+  font-family: 'Glyphicons Halflings';
+  src: url('../fonts/glyphicons-halflings-regular.eot');
+  src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');
+}
+
+
+@mixin main_font ($weight:300,$color:#333333){ font-family:'Roboto', sans-serif; font-weight:$weight; color:$color;}
+
+
+
+body { @include main_font(); }
+
+.centered-div {z-index: 100;
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+display: -webkit-box;
+display: -webkit-flex;
+display: -moz-box;
+display: -ms-flexbox;
+display: flex;
+-webkit-box-pack: center;
+-webkit-justify-content: center;
+-moz-box-pack: center;
+-ms-flex-pack: center;
+justify-content: center;
+-webkit-box-align: center;
+-webkit-align-items: center;
+-moz-box-align: center;
+-ms-flex-align: center;
+align-items: center;
+-webkit-box-orient: vertical;
+-webkit-box-direction: normal;
+-webkit-flex-direction: column;
+-moz-box-orient: vertical;
+-moz-box-direction: normal;
+-ms-flex-direction: column;
+flex-direction: column;
+text-align: center;
+	h1 {font-size: 72px; font-size: 3.5vw}
+	.ocumail {width: 29vw; margin-bottom: 20px;}
+	.btn-login {background-color: #64b5f6; color: #fff; border-bottom: 5px solid #2196f3; padding: 10px 50px; font-size: 18px;}
+	h3 {margin-top:100px; margin-top: 6vw; font-weight: 300; margin-bottom: 30px; margin-bottom: 2vw; font-size: 24px; font-size: 1.3vw;}
+	.others {
+		img {padding: 0 25px; width: 11vw; max-width: 200px;}
+	}
+}
+
+.footer {background: #f0f0f0; width: 100%; position: absolute; bottom: 0; padding: 15px 0; color: #999; text-align: center;
+	p {margin: 0;}
+}
+
+
+@media (max-width:767px) {
+	.centered-div h1 {font-size: 6vw;}
+
+	.centered-div h3 {font-size: 16px; margin-top: 40px;}
+	.centered-div .others img {width: 25vw; max-width: 140px; padding: 0 10px;}
+}
+@media (min-width:768px) and (max-width: 991px) {
+	.centered-div h3 {font-size: 2.3vw;}
+	.centered-div .others img {width: 20vw;}
+}
+@media (min-width:992px) and (max-width:1199px) {
+	.centered-div h3 {font-size: 1.9vw;}
+	.centered-div .others img {width: 20vw;}
+}
+@media (min-width: 1200px) {
+
+}
+
+.volunteer-details-modal-content {
+	margin:20px;
+}
+
+.main-sidebar{
+	min-height:1200px;
+}
+
+.content{
+	min-height:1000px;
+}
+
+
+// THIS IS WHERE MY FULL STACKNESS REALLY SHINES THROUGH:
+
+// START MY PRETTY BUTTONS ON THE INDEX VIEW (EVIL HEROKU CHASED THEM AWAY )': '
+.index-action-button{
+	font-size:20px;
+	color:white;
+	padding-top:2px;
+}
+.index-action-button-show{
+	margin-right:7px;
+	background-color:#29B6F6;
+}
+.index-action-button-edit{
+	margin-right:7px;
+	background-color:#66BB6A;	
+}
+.index-action-button-delete{
+	background-color:#ef5350;	
+}
+// END BUTTONS
+
+.table .vert-align{
+    vertical-align: middle;
+}

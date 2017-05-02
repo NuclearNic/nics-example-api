@@ -1,0 +1,40 @@
+<div class="box box-primary">
+  <div class="box-body">
+    <%= form_for([:admin, eval("@#{controller_name.singularize}")]) do |f| %>
+        <% if eval("@#{controller_name.singularize}").errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(eval("@#{controller_name.singularize}").errors.count, "error") %> prohibited this estimate_element from being saved:</h2>
+              <ul>
+                <% eval("@#{controller_name.singularize}").errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                <% end %>
+              </ul>
+            </div>
+        <% end %>
+        <div class="form-group">
+          <%= f.label :name %><br>
+          <%= f.text_field :name, class: 'form-control'  %>
+        </div>
+        <div class="form-group">
+          <%= f.label :layout_skin %><br>            
+          <%= f.collection_select :layout_skin, Company.layout_skin_options, :to_s, :to_s, include_blank: true %>
+        </div>
+        <div class="form-group">
+          <%= f.label :layout_style %><br>            
+          <%= f.collection_select :layout_style, Company.layout_style_options, :to_s, :to_s, include_blank: true %>
+        </div>
+        <div class="form-group">
+          <%= f.label :logo_image %><br>
+          <%= image_tag(@company.logo_image_url(:thumb)) if @company.logo_image? %>
+          <%= f.file_field :logo_image %>
+        </div>
+        <div class="actions">
+          <%= f.submit class: 'btn btn-primary'%> |
+          <%= link_to 'Back', eval("admin_#{controller_name.downcase}_path"), class: 'btn btn-primary' %>
+          <% unless action_name == "new" %>|
+            <%= link_to 'Destroy', [:admin, eval("@#{controller_name.singularize}")], method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+          <% end %>
+        </div>
+    <% end %>
+  </div>
+</div>

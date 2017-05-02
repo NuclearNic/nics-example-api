@@ -1,0 +1,76 @@
+<% content_for :content do %>
+
+<div class="box box-<%= bootstrap_style %>">
+  <div class="box-body">
+
+    <%= form_for([:admin, eval("@#{controller_name.singularize}")]) do |f| %>
+        <% if eval("@#{controller_name.singularize}").errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(eval("@#{controller_name.singularize}").errors.count, "error") %> prohibited this estimate_element from being saved:</h2>
+
+              <ul>
+                <% eval("@#{controller_name.singularize}").errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                <% end %>
+              </ul>
+            </div>
+        <% end %>
+
+        <% (controller_name.singularize.classify.constantize.column_names - ["id", "updated_at", 'encrypted_password', 'reset_password_token']).each do |field| %>
+
+          <% if field == 'image' %>
+            <div class="form-group">
+              <%= f.label :image %><br>
+              <%= image_tag(eval "@#{controller_name.singularize}.image_url(:thumb)") if eval "@#{controller_name.singularize}.image?" %>
+            </div>
+
+          <% elsif controller_name.singularize.classify.constantize.column_for_attribute(field).type == :string %>
+            <div class="form-group">
+              <%= f.label field.to_sym %><br>
+              <%= f.text_field field.to_sym, class: 'form-control',:readonly => true  %>
+            </div>
+
+          <% elsif controller_name.singularize.classify.constantize.column_for_attribute(field).type == :text  %>
+            <div class="form-group">
+              <%= f.label field.to_sym %><br>
+              <%= f.text_area field.to_sym, class: 'form-control' ,:readonly => true %>
+            </div>
+
+          <% elsif controller_name.singularize.classify.constantize.column_for_attribute(field).type == :boolean  %>
+            <div class="form-group">
+              <%= f.label field.to_sym %>?
+              <%= (eval "@#{controller_name.singularize}.#{field}") ? 'True' : 'False' %>
+            </div>
+
+          <% elsif controller_name.singularize.classify.constantize.column_for_attribute(field).type == :datetime  %>
+            <div class="form-group">
+              <%= f.label field.to_sym %><br>
+              <%= (eval "@#{controller_name.singularize}.#{field}").strftime("%H:%M, %d %b, %Y") unless (eval "@#{controller_name.singularize}.#{field}").nil? %>
+            </div>
+
+            <% elsif controller_name.singularize.classify.constantize.column_for_attribute(field).type == :integer  %>
+              <div class="form-group">
+                <%= f.label field.to_sym %><br>
+                <%= (eval "@#{controller_name.singularize}.#{field}") %>
+              </div>
+
+            <% elsif controller_name.singularize.classify.constantize.column_for_attribute(field).name == "app_id"  %>
+              <div class="form-group">
+                <%= f.label :app %><br>            
+                <%= f.collection_select(:app_id, App.all, :id, :name, {:include_blank => true ,:selected => session[:app_id]}) %>
+              </div>
+            <% end %>          
+
+          <% end %>
+
+          <div class="actions">
+            <%= link_to 'Back', eval("admin_#{controller_name.downcase}_path"), class: 'btn btn-primary' %>
+          </div>
+    
+    <% end %>
+  </div>
+</div>
+
+
+
+<% end %>

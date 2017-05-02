@@ -1,0 +1,79 @@
+<div class="box box-<%= bootstrap_style %>">
+  <div class="box-body">
+
+    <%= form_for([:admin, eval("@#{controller_name.singularize}")]) do |f| %>
+        <% if eval("@#{controller_name.singularize}").errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(eval("@#{controller_name.singularize}").errors.count, "error") %> prohibited this estimate_element from being saved:</h2>
+              <ul>
+                <% eval("@#{controller_name.singularize}").errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                <% end %>
+              </ul>
+            </div>
+        <% end %>
+
+        <% OrderedViewField.find_by(name_of_model: controller_name.singularize.capitalize, name_of_view: 'form').model_fields.reject {|x| x.include? "64"}.each do |field| %>
+
+          <% if field.include? 'image' and !field.include? 'caption' %>
+
+            <div class="form-group">
+              <%= f.label field.to_sym %><br>
+              <% if eval "@#{controller_name.singularize}.#{field}?" %>
+                <%= image_tag(eval "@#{controller_name.singularize}.#{field}_url(:thumb)")  %>             
+                <%= f.check_box ("remove_" + field).to_sym %>
+              <% end %>
+              <%= f.file_field field.to_sym %>
+            </div>
+
+          <% elsif controller_name.singularize.classify.constantize.column_for_attribute(field).type == :string %>
+            <div class="form-group">
+              <%= f.label field.to_sym %><br>
+              <%= f.text_field field.to_sym, class: 'form-control'  %>
+            </div>
+
+          <% elsif controller_name.singularize.classify.constantize.column_for_attribute(field).type == :text  %>
+            <div class="form-group">
+              <%= f.label field.to_sym %><br>              
+              <% field == 'teaser' ? rows = 4 : rows = 10 %>
+              <%= f.bootsy_area field.to_sym , rows: rows, class: 'form-control'  %>
+            </div>
+
+          <% elsif controller_name.singularize.classify.constantize.column_for_attribute(field).type == :boolean  %>
+            <div class="form-group">
+              <%= f.label field.to_sym %><br>
+              <%= f.check_box field.to_sym %>
+            </div>
+
+          <% elsif controller_name.singularize.classify.constantize.column_for_attribute(field).type == :datetime  %>
+            <div class="form-group">
+              <%= f.label field.to_sym %><br>
+              <%= f.datetime_select field.to_sym, :ampm => true, :minute_step => 15 %>
+            </div>
+
+          <% elsif controller_name.singularize.classify.constantize.column_for_attribute(field).name == "app_id"  %>
+            <div class="form-group">
+          <%= f.label :app %><br>            
+          <%= f.collection_select(:app_id, App.all, :id, :name, {:include_blank => true ,:selected => session[:app_id]}, {:class => 'form-control'}) %>
+            </div>
+
+          <% elsif controller_name.singularize.classify.constantize.column_for_attribute(field).type == :integer  %>
+            <div class="form-group">
+              <%= f.label field.to_sym %><br>            
+              <%= f.number_field field.to_sym %>
+            </div>
+
+          <% end %>          
+        <% end %>
+
+        <div class="actions">
+          <%= f.submit class: 'btn btn-primary'%> |
+          <%= link_to 'Back', eval("admin_#{controller_name.downcase}_path"), class: 'btn btn-primary' %>
+          <% unless action_name == "new" %> |
+            <%= link_to 'Destroy', [:admin, eval("@#{controller_name.singularize}")], method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+          <% end %>
+        </div>
+    <% end %>
+
+  </div>
+</div>

@@ -1,0 +1,25 @@
+# == Schema Information
+#
+# Table name: articles
+#
+#  id            :integer          not null, primary key
+#  title         :string
+#  body          :text
+#  image         :string
+#  published     :boolean
+#  app_id        :integer
+#  image_caption :string
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  teaser        :text
+#  image_base_64 :text
+#  position      :integer
+#
+
+require 'test_helper'
+
+class ArticleTest < ActiveSupport::TestCase
+  # test "the truth" do
+  #   assert true
+  # end
+end

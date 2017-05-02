@@ -1,0 +1,48 @@
+<aside class="main-sidebar">
+
+  <section class="sidebar">
+    <div class="user-panel">
+      <div class="pull-left image">
+        <%= eval("#{logo_image}" + ", :class=>'img-circle'") %>
+        <!-- <img src="/assets/admin/kknk_icon.png" class="img-circle" alt="User Image" /> -->
+      </div>
+      <div class="pull-left info">  
+        <p> User Role:</p>
+        <p><%= current_user.role %></p>
+      </div>
+    </div>
+    <ul class="sidebar-menu">
+      <li class="header" style="text-align:center">MAIN NAVIGATION</li>
+      <% if current_user.admin? %>
+        <li class="treeview">
+          <a href="#"><i class='fa fa-link'></i> <span>Administration</span> <i class="fa fa-angle-left pull-right"></i></a>
+          <ul class="treeview-menu">
+            <li><a href="/admin/users"><i class="fa fa-user-circle-o"></i> Users</a></li>
+            <li><a href="/admin/companies"><i class="fa fa-handshake-o"></i> Companies</a></li>
+            <li><a href="/admin/ordered_view_fields"><i class="fa fa-list-ol"></i> Order Fields</a></li>
+          </ul>
+        </li>        
+      <% end %>
+       <li class="treeview">
+        <a href="#"><i class='fa fa-link'></i> <span>App Management</span> <i class="fa fa-angle-left pull-right"></i></a>
+        <ul class="treeview-menu">
+          <li><a href="/admin/apps"><i class="fa fa-apple"></i> Apps</a></li>
+          <li><a href="/admin/articles"><i class="fa fa-newspaper-o"></i> Articles</a></li>
+          <li><a href="/admin/pages"><i class="fa fa-book"></i> Pages</a></li>
+          <li><a href="/admin/videos"><i class="fa fa-video-camera"></i> Videos</a></li>
+          <li><a href="#"><i class="fa fa-photo"></i> Galleries</a></li>
+          <li><a href="/admin/competitions"><i class="fa fa-trophy"></i> Competitions</a></li>
+          <li><a href="/admin/schedules"><i class="fa fa-calendar"></i> Schedules</a></li>
+          <li><a href="#"><i class="fa fa-map-o"></i> Maps</a></li>
+          <li><a href="#"><i class="fa fa-envelope"></i> Feedback</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="/admin/api_endpoints"><i class="fa fa-list-alt"></i>JSON Output</a>
+      </li> 
+      <li>
+        <a href="/admin/live_view"><i class="fa fa-line-chart"></i> Live View</a>
+      </li>
+    </ul>
+  </section>
+</aside>
