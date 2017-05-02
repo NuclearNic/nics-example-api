@@ -14,7 +14,7 @@ apps (this is yet to be added) and will therefore see the CMS as personalized to
 As mentioned above the various authorization levels and the App HABTM Users relationship is yet to be added.
 
 ### Live View
-The live view is an Iframe to an instance of the hybrid app running on Heroku. **The Heroku app is on a free dyno so it may take some time for the dyno to wake up. The API routes for the production app are in the process of being changed, so **it is likely that the Iframe view will show a phone app that is simply an empty shell**. For CMS users this is a very useful feature as they can immediately see the effects of the changes they've made. Without needing to test their content on a seperate device. 
+The live view is an Iframe to an instance of the hybrid app running on Heroku. **The Heroku app is on a free dyno so it may take some time for the dyno to wake up**. The API routes for the production app are in the process of being changed, so **it is likely that the Iframe view will show a phone app that is simply an empty shell**. For CMS users this is a very useful feature as they can immediately see the effects of the changes they've made. Without needing to test their content on a seperate device. 
 
 ### Metaprogramming
 One of the goals of the project was to employ as much metaprogramming as possible. The controllers.rb file shows
