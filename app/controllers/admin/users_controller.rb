@@ -1,5 +1,5 @@
 class Admin::UsersController < AdminController
-  
+
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   layout 'admin'
 
@@ -34,7 +34,7 @@ class Admin::UsersController < AdminController
   def update
 
     if params[:user][:password] == ""
-      user_parameters = user_params.except!(:password, :password_confirmation) 
+      user_parameters = user_params.except!(:password, :password_confirmation)
     else
       user_parameters = user_params
     end
